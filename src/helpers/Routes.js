@@ -16,6 +16,7 @@ export default function Routes({ authed }) {
       <Switch>
         <Route exact path='/' component={() => <Home authed={authed} />} />
         <Route exact path='/boards' component={() => <Boards authed={authed} />} />
+        <Route exact path='/boards/:id' component={() => <SingleBoard authed={authed} />} />
         <Route exact path='/pins' component={() => <Pins authed={authed} />} />
         <Route exact path='/boardForm' component={() => <BoardForm authed={authed} />} />
         <Route exact path='/pinDetails' component={() => <PinDetails authed={authed} />} />
