@@ -8,7 +8,7 @@ class Boards extends React.Component {
   };
 
   componentDidMount() {
-    boardData().then((response) => {
+    boardData.getBoards().then((response) => {
       this.setState({
         boards: response,
       });

@@ -19,4 +19,18 @@ const getBoards = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default getBoards;
+const getBoardPins = (boardId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/pins-boards.json?orderBy="boardId"&indexOn="${boardId}"`).then((response) => {
+    const pinData = response.data;
+    const pinArray = [];
+    if (pinData) {
+      Object.keys(pinData).forEach((pin) => {
+        pinArray.push(pinData[pin]);
+      });
+    }
+    console.warn(pinArray);
+    resolve(pinArray);
+  }).catch((error) => reject(error));
+});
+
+export default { getBoardPins, getBoards };

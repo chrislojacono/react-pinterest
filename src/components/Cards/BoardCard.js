@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function BoardsCard({ boardData }) {
   return (
-    <div className='card grow' style={{ width: '18rem;' }}>
+    <div className='card grow' style={{ width: '18rem' }}>
       <div href='#' className='see-pins'>
         <img src={boardData.imageUrl} alt='board' />
         <h3 className='card-title grow'>{boardData.name}</h3>
