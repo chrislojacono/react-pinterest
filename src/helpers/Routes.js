@@ -18,12 +18,12 @@ export default function Routes({ authed }) {
     <Router>
       <Switch>
         <Route exact path='/' component={() => <Home authed={authed} />} />
-        <Route exact path='/boards' component={Boards} />
-        <Route exact path='/pins' component={Pins} />
-        <Route exact path='/boardForm' component={BoardForm} />
-        <Route exact path='/pinDetails' component={PinDetails} />
-        <Route exact path='/pinForm' component={PinForm} />
-        <Route exact path='/singleBoard' component={SingleBoard} />
+        <Route exact path='/boards' component={() => <Boards authed={authed} />} />
+        <Route exact path='/pins' component={() => <Pins authed={authed} />} />
+        <Route exact path='/boardForm' component={() => <BoardForm authed={authed} />} />
+        <Route exact path='/pinDetails' component={() => <PinDetails authed={authed} />} />
+        <Route exact path='/pinForm' component={() => <PinForm authed={authed} />} />
+        <Route exact path='/singleBoard' component={() => <SingleBoard authed={authed} />} />
         <Route component={() => <Home authed={authed} />} />
       </Switch>
     </Router>
