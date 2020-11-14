@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase/app';
 import Routes from '../helpers/Routes';
 import fbConnection from '../helpers/data/connection';
@@ -8,6 +9,7 @@ fbConnection();
 class App extends React.Component {
   state = {
     authed: false,
+    boards: [],
   }
 
   componentDidMount() {
@@ -32,8 +34,10 @@ class App extends React.Component {
     const { authed } = this.state;
     return (
       <div className="App">
+        <Router>
         <MyNavbar authed={authed}/>
         <Routes authed={authed}/>
+        </Router>
       </div>
     );
   }
