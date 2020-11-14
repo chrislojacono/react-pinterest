@@ -1,9 +1,8 @@
 import React from 'react';
 import firebase from 'firebase/app';
+import Routes from '../helpers/Routes';
 import fbConnection from '../helpers/data/connection';
-import Auth from '../components/Auth';
 import MyNavbar from '../components/MyNavbar';
-import BoardContainer from '../components/BoardContainer';
 
 fbConnection();
 class App extends React.Component {
@@ -31,19 +30,10 @@ class App extends React.Component {
 
   render() {
     const { authed } = this.state;
-    const loadComponent = () => {
-      let component = '';
-      if (authed) {
-        component = <BoardContainer />;
-      } else {
-        component = <Auth />;
-      }
-      return component;
-    };
     return (
       <div className="App">
         <MyNavbar authed={authed}/>
-        {loadComponent()}
+        <Routes authed={authed}/>
       </div>
     );
   }
