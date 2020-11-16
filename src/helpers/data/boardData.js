@@ -20,7 +20,7 @@ const getBoards = () => new Promise((resolve, reject) => {
 });
 
 const getBoardPins = (boardId) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/pins-boards.json?orderBy="boardId"&indexOn="${boardId}"`).then((response) => {
+  axios.get(`${baseUrl}/pins-boards.json?orderBy="boardId"&equalTo="${boardId}"`).then((response) => {
     const pinData = response.data;
     const pinArray = [];
     if (pinData) {
