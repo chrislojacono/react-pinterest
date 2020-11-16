@@ -1,12 +1,12 @@
 import React from 'react';
-import Boards from './boards';
+import PublicPins from './PublicPins';
 import Auth from '../components/Auth';
 
 export default function Home(props) {
   const loadComponent = () => {
     let component = '';
     if (props.user) {
-      component = <Boards />;
+      component = <PublicPins />;
     } else {
       component = <Auth />;
     }

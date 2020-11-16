@@ -15,12 +15,17 @@ class Boards extends React.Component {
     });
   }
 
+  deleteBoard = (firebasekey) => {
+    boardData.deleteBoard(firebasekey);
+    this.state.boards.splice(0, 1);
+  }
+
   render() {
     const { boards } = this.state;
     return (
       <div className='d-flex flex-row flex-wrap'>
         {boards.map((board) => (
-          <BoardCard key={board.firebaseKey} boardData={board} />
+          <BoardCard key={board.firebaseKey} boardData={board} boardDataFunc={this.deleteBoard} />
         ))}
       </div>
     );

@@ -10,9 +10,9 @@ class PublicPins extends React.Component {
   componentDidMount() {
     pinData.getAllPins().then((response) => {
       response.forEach((pin) => {
-        if (pin.isPrivate === false) {
+        if (pin.private === false) {
           this.setState({
-            publicPins: response,
+            publicPins: this.state.publicPins.concat(pin),
           });
         }
       });
@@ -22,7 +22,7 @@ class PublicPins extends React.Component {
   render() {
     const { publicPins } = this.state;
     return (
-      <div className='d-flex flex-row flex-wrap'>
+      <div className='d-flex flex-row flex-wrap container'>
         {publicPins.map((pin) => (
           <PinCard key={pin.firebaseKey} pinData={pin} />
         ))}

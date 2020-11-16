@@ -25,4 +25,13 @@ const getSinglePin = (pinId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getSinglePin, getAllPins };
+const deletePin = (pinUid) => axios.delete(`${baseUrl}/Pins/${pinUid}.json`);
+
+const updatePin = (uid, dataObject) => axios.patch(`${baseUrl}/Pins/${uid}.json`, dataObject);
+
+export default {
+  getSinglePin,
+  getAllPins,
+  deletePin,
+  updatePin,
+};
