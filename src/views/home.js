@@ -1,12 +1,12 @@
 import React from 'react';
-import BoardContainer from '../components/BoardContainer';
+import Boards from './boards';
 import Auth from '../components/Auth';
 
 export default function Home(props) {
   const loadComponent = () => {
     let component = '';
-    if (props.authed) {
-      component = <BoardContainer />;
+    if (props.user) {
+      component = <Boards />;
     } else {
       component = <Auth />;
     }

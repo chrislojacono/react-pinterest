@@ -33,4 +33,10 @@ const getBoardPins = (boardId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getBoardPins, getBoards };
+const getSingleBoard = (boardId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/Boards/${boardId}.json`).then((response) => {
+    resolve(response.data);
+  }).catch((error) => reject(error));
+});
+
+export default { getBoardPins, getBoards, getSingleBoard };
