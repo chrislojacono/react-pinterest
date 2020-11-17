@@ -62,7 +62,7 @@ const deleteBoard = (boardUid) => {
 const createBoard = (object) => new Promise((resolve, reject) => {
   axios.post(`${baseUrl}/Boards.json`, object)
     .then((response) => {
-      axios.patch(`${baseUrl}/boards/${response.data.name}.json`, { firebaseKey: response.data.name }).then(resolve);
+      axios.patch(`${baseUrl}/Boards/${response.data.name}.json`, { firebaseKey: response.data.name }).then(resolve);
     }).catch((error) => reject(error));
 });
 

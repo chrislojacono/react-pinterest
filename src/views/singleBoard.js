@@ -1,6 +1,7 @@
 import React from 'react';
 import { getSinglePin } from '../helpers/data/pinData';
 import { getBoardPins, getSingleBoard } from '../helpers/data/boardData';
+
 import PinCard from '../components/Cards/PinCard';
 import BoardForm from '../components/Forms/BoardForm';
 
@@ -11,7 +12,9 @@ export default class SingleBoard extends React.Component {
   };
 
   componentDidMount() {
+    // 1. Pull boardId from URL params
     const boardId = this.props.match.params.id;
+
     this.getBoardInfo(boardId);
     this.getPins(boardId)
       .then((resp) => (
@@ -31,6 +34,8 @@ export default class SingleBoard extends React.Component {
     getBoardPins(boardId).then((response) => {
       const pinArray = [];
       response.forEach((item) => {
+      const pinArray = [];
+      response.forEach((item) => {
         pinArray.push(getSinglePin(item.pinId));
       });
       return Promise.all([...pinArray]);
@@ -44,6 +49,7 @@ export default class SingleBoard extends React.Component {
         <PinCard key={pin.firebaseKey} pinData={pin} />
       ))
     );
+
     return (
       <div>
         { Object.keys(board).length && <BoardForm board={board} onUpdate={this.getBoardInfo} />}

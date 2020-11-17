@@ -1,6 +1,6 @@
 import React from 'react';
 import getUid from '../helpers/data/authData';
-import { deleteBoard, getAllUserBoards } from '../helpers/data/boardData';
+import { getAllUserBoards, deleteBoard } from '../helpers/data/boardData';
 import BoardCard from '../components/Cards/BoardCard';
 import BoardForm from '../components/Forms/BoardForm';
 
