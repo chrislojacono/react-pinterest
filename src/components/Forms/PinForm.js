@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import getUser from '../../helpers/data/authData';
 import { createPin, updatePin } from '../../helpers/data/pinData';
+import { getAllUserBoards } from '../../helpers/data/boardData';
 
 export default class PinForm extends Component {
   state = {
@@ -10,8 +11,9 @@ export default class PinForm extends Component {
     description: this.props.pin?.description || '',
     name: this.props.pin?.name || '',
     imageUrl: this.props.pin?.imageUrl || '',
-    private: this.props.pin?.private || '',
+    private: this.props.pin?.private || false,
     userId: this.props.pin?.userId || '',
+    boards: [],
   };
 
   componentDidMount() {
@@ -43,22 +45,25 @@ export default class PinForm extends Component {
     e.preventDefault();
     this.btn.setAttribute('disabled', 'disabled');
     if (this.state.firebaseKey === '') {
-      createPin(this.state)
-        .then(() => {
-          this.props.onUpdate?.();
-          this.setState({ success: true });
-        });
+      createPin(this.state).then(() => {
+        this.props.onUpdate?.();
+        this.setState({ success: true });
+      });
     } else {
-      updatePin(this.state)
-        .then(() => {
-          this.props.onUpdate?.(this.props.pin.firebaseKey);
-          this.setState({ success: true });
-        });
+      updatePin(this.state).then(() => {
+        this.props.onUpdate?.(this.props.pin.firebaseKey);
+        this.setState({ success: true });
+      });
     }
-  }
+  };
 
   render() {
     const { success } = this.state;
+    // const userId = getUser();
+    // const boardsResponse = () => {
+    //   getAllUserBoards(userId).then((response) => response);
+    // };
+
     return (
       <>
         {success && (
@@ -89,10 +94,19 @@ export default class PinForm extends Component {
               required
             />
           </div>
-          <select className='form-control form-control-lg' required>
+          <select className='form-control form-control-lg m-2' required>
             <option value='true'>Private</option>
             <option value='false'>Public</option>
           </select>
+          {/* <label>Select A Board</label>
+          {/* <select
+            label='Select A Board'
+            className='form-control form-control-lg m-2'
+          >
+            {boardsResponse().map((board) => (
+              <option value={board.firebaseKey}>{board.name}</option>
+            ))}
+          </select> */}
           <div>
             <input
               type='url'

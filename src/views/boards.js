@@ -31,8 +31,9 @@ class Boards extends React.Component {
   render() {
     const { boards } = this.state;
     return (
+      <>
+      <BoardForm onUpdate={this.getBoards} />
       <div className='d-flex flex-row flex-wrap'>
-        <BoardForm onUpdate={this.getBoards} />
         {boards.map((board) => (
           <BoardCard
             key={board.firebaseKey}
@@ -41,6 +42,7 @@ class Boards extends React.Component {
           />
         ))}
       </div>
+      </>
     );
   }
 }
