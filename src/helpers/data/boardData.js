@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ApiKeys from '../apiKeys';
+import pinData from './pinData';
 
 const baseUrl = ApiKeys.databaseURL;
 
@@ -19,16 +20,21 @@ const getBoards = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getAllUserBoards = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/Boards.json?orderBy="userId"&equalTo="${uid}"`).then((response) => {
+    resolve(Object.values(response.data));
+  }).catch((error) => reject(error));
+});
+
 const getBoardPins = (boardId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/pins-boards.json?orderBy="boardId"&equalTo="${boardId}"`).then((response) => {
-    const pinData = response.data;
+    const pinResponse = response.data;
     const pinArray = [];
-    if (pinData) {
-      Object.keys(pinData).forEach((pin) => {
-        pinArray.push(pinData[pin]);
+    if (pinResponse) {
+      Object.keys(pinResponse).forEach((pin) => {
+        pinArray.push(pinResponse[pin]);
       });
     }
-    console.warn(pinArray);
     resolve(pinArray);
   }).catch((error) => reject(error));
 });
@@ -39,4 +45,38 @@ const getSingleBoard = (boardId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getBoardPins, getBoards, getSingleBoard };
+const deleteBoard = (boardUid) => {
+  getBoardPins(boardUid)
+    .then((response) => {
+      response.forEach((item) => {
+        pinData.deletePin(item.uid);
+      });
+    })
+    .then(() => {
+      getSingleBoard(boardUid).then((response) => {
+        axios.delete(`${baseUrl}/Boards/${response.firebaseKey}.json`);
+      });
+    });
+};
+
+const createBoard = (object) => new Promise((resolve, reject) => {
+  axios.post(`${baseUrl}/Boards.json`, object)
+    .then((response) => {
+      axios.patch(`${baseUrl}/boards/${response.data.name}.json`, { firebaseKey: response.data.name }).then(resolve);
+    }).catch((error) => reject(error));
+});
+
+const updateBoard = (object) => new Promise((resolve, reject) => {
+  axios.patch(`${baseUrl}/Boards/${object.firebaseKey}.json`, object)
+    .then(resolve).catch((error) => reject(error));
+});
+
+export default {
+  getBoardPins,
+  getBoards,
+  getSingleBoard,
+  deleteBoard,
+  updateBoard,
+  getAllUserBoards,
+  createBoard,
+};
