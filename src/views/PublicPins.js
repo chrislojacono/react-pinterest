@@ -1,5 +1,5 @@
 import React from 'react';
-import pinData from '../helpers/data/pinData';
+import { getAllPins } from '../helpers/data/pinData';
 import PinCard from '../components/Cards/PinCard';
 
 class PublicPins extends React.Component {
@@ -8,7 +8,7 @@ class PublicPins extends React.Component {
   };
 
   componentDidMount() {
-    pinData.getAllPins().then((response) => {
+    getAllPins().then((response) => {
       response.forEach((pin) => {
         if (pin.private === false) {
           this.setState({

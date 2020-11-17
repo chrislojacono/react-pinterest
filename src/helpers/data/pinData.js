@@ -47,7 +47,7 @@ const deletePin = (pinUid) => axios.delete(`${baseUrl}/Pins/${pinUid}.json`);
 
 const updatePin = (uid, dataObject) => axios.patch(`${baseUrl}/Pins/${uid}.json`, dataObject);
 
-export default {
+export {
   getSinglePin,
   getAllPins,
   deletePin,
