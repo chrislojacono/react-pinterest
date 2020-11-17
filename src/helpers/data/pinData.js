@@ -40,7 +40,7 @@ const updatePin = (object) => new Promise((resolve, reject) => {
 });
 
 const getUserPins = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/Pins.json?orderBy="UserId"&equalTo="${userId}"`).then((response) => {
+  axios.get(`${baseUrl}/Pins.json?orderBy="userId"&equalTo="${userId}"`).then((response) => {
     const pinResponse = response.data;
     const pinArray = [];
     if (pinResponse) {
