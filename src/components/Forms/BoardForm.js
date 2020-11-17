@@ -6,6 +6,7 @@ import boardData from '../../helpers/data/boardData';
 
 export default class BoardForm extends Component {
   state = {
+  // if this doesnt exist return falsey
     firebaseKey: this.props.board?.firebaseKey || '',
     name: this.props.board?.name || '',
     imageUrl: this.props.board?.imageUrl || '',

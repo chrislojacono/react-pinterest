@@ -21,7 +21,7 @@ const getBoards = () => new Promise((resolve, reject) => {
 });
 
 const getAllUserBoards = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/boards.json?orderBy="userId"&equalTo="${uid}"`).then((response) => {
+  axios.get(`${baseUrl}/Boards.json?orderBy="userId"&equalTo="${uid}"`).then((response) => {
     resolve(Object.values(response.data));
   }).catch((error) => reject(error));
 });
@@ -35,7 +35,6 @@ const getBoardPins = (boardId) => new Promise((resolve, reject) => {
         pinArray.push(pinResponse[pin]);
       });
     }
-    console.warn(pinArray);
     resolve(pinArray);
   }).catch((error) => reject(error));
 });
@@ -49,29 +48,26 @@ const getSingleBoard = (boardId) => new Promise((resolve, reject) => {
 const deleteBoard = (boardUid) => {
   getBoardPins(boardUid)
     .then((response) => {
-      console.warn(response);
       response.forEach((item) => {
         pinData.deletePin(item.uid);
       });
     })
     .then(() => {
       getSingleBoard(boardUid).then((response) => {
-        console.warn(boardUid);
         axios.delete(`${baseUrl}/Boards/${response.firebaseKey}.json`);
       });
     });
 };
 
 const createBoard = (object) => new Promise((resolve, reject) => {
-  axios.post(`${baseUrl}/boards.json`, object)
+  axios.post(`${baseUrl}/Boards.json`, object)
     .then((response) => {
-      console.warn(response);
       axios.patch(`${baseUrl}/boards/${response.data.name}.json`, { firebaseKey: response.data.name }).then(resolve);
     }).catch((error) => reject(error));
 });
 
 const updateBoard = (object) => new Promise((resolve, reject) => {
-  axios.patch(`${baseUrl}/boards/${object.firebaseKey}.json`, object)
+  axios.patch(`${baseUrl}/Boards/${object.firebaseKey}.json`, object)
     .then(resolve).catch((error) => reject(error));
 });
 

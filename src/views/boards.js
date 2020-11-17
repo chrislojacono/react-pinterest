@@ -1,6 +1,8 @@
 import React from 'react';
+import getUid from '../helpers/data/authData';
 import boardData from '../helpers/data/boardData';
 import BoardCard from '../components/Cards/BoardCard';
+import BoardForm from '../components/Forms/BoardForm';
 
 class Boards extends React.Component {
   state = {
@@ -8,24 +10,35 @@ class Boards extends React.Component {
   };
 
   componentDidMount() {
-    boardData.getBoards().then((response) => {
-      this.setState({
-        boards: response,
-      });
-    });
+    this.getBoards();
   }
+
+  getBoards = () => {
+    const currentUserId = getUid();
+    boardData.getAllUserBoards(currentUserId).then((response) => {
+      this.setState(
+        {
+          boards: response,
+        },
+      );
+    });
+  };
 
   deleteBoard = (firebasekey) => {
     boardData.deleteBoard(firebasekey);
-    this.state.boards.splice(0, 1);
-  }
+  };
 
   render() {
     const { boards } = this.state;
     return (
       <div className='d-flex flex-row flex-wrap'>
+        <BoardForm onUpdate={this.getBoards} />
         {boards.map((board) => (
-          <BoardCard key={board.firebaseKey} boardData={board} boardDataFunc={this.deleteBoard} />
+          <BoardCard
+            key={board.firebaseKey}
+            boardData={board}
+            boardDataFunc={this.deleteBoard}
+          />
         ))}
       </div>
     );

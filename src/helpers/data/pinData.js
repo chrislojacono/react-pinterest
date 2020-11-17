@@ -19,6 +19,24 @@ const getAllPins = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+// const getAllPinsPatch = () => new Promise((resolve, reject) => {
+//   axios
+//     .get(`${baseUrl}/Pins.json`)
+//     .then((response) => {
+//       const Pins = response.data;
+//       const PinsArray = [];
+//       if (Pins) {
+//         Object.keys(Pins).forEach((boardId) => {
+//           PinsArray.push(Pins[boardId]);
+//         });
+//       }
+//       PinsArray.forEach((pin) => {
+
+//       })
+//     })
+//     .catch((error) => reject(error));
+// });
+
 const getSinglePin = (pinId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/Pins/${pinId}.json`).then((response) => {
     resolve(response.data);
