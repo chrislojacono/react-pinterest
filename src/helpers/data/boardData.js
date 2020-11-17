@@ -1,6 +1,6 @@
 import axios from 'axios';
 import ApiKeys from '../apiKeys';
-import pinData from './pinData';
+import { deletePin } from './pinData';
 
 const baseUrl = ApiKeys.databaseURL;
 
@@ -49,7 +49,7 @@ const deleteBoard = (boardUid) => {
   getBoardPins(boardUid)
     .then((response) => {
       response.forEach((item) => {
-        pinData.deletePin(item.uid);
+        deletePin(item.uid);
       });
     })
     .then(() => {
@@ -71,7 +71,7 @@ const updateBoard = (object) => new Promise((resolve, reject) => {
     .then(resolve).catch((error) => reject(error));
 });
 
-export default {
+export {
   getBoardPins,
   getBoards,
   getSingleBoard,
