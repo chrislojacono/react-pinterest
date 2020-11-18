@@ -24,7 +24,7 @@ export default function Routes({ user }) {
         <Route exact path='/pinDetails' component={() => <PinDetails user={user} />} />
         <Route exact path='/pinForm' component={() => <PinForm user={user} />} />
         <Route exact path='/singleBoard' component={() => <SingleBoard user={user} />} />
-        <Route exact path='search/:text/:type' component= {(props) => <SearchResults {...props}/>}/>
+        <Route exact path='/search/:term/:type' component= {(props) => <SearchResults {...props}/>}/>
         <Route component={() => <Home user={user} />} />
       </Switch>
   );
