@@ -3,6 +3,7 @@ import getUid from '../helpers/data/authData';
 import { getAllUserBoards, deleteBoard } from '../helpers/data/boardData';
 import BoardCard from '../components/Cards/BoardCard';
 import BoardForm from '../components/Forms/BoardForm';
+import AppModal from '../components/AppModal';
 
 class Boards extends React.Component {
   state = {
@@ -32,7 +33,9 @@ class Boards extends React.Component {
     const { boards } = this.state;
     return (
       <>
+      <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
       <BoardForm onUpdate={this.getBoards} />
+        </AppModal>
       <div className='d-flex flex-row flex-wrap'>
         {boards.map((board) => (
           <BoardCard

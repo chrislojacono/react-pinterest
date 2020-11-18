@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Route,
+  Router,
   Switch,
 } from 'react-router-dom';
 import Home from '../views/home';
@@ -10,6 +11,7 @@ import PinDetails from '../views/pinDetails';
 import PinForm from '../views/pinForm';
 import Pins from '../views/pins';
 import SingleBoard from '../views/singleBoard';
+import SearchResults from '../views/SearchResults';
 
 export default function Routes({ user }) {
   return (
@@ -22,6 +24,7 @@ export default function Routes({ user }) {
         <Route exact path='/pinDetails' component={() => <PinDetails user={user} />} />
         <Route exact path='/pinForm' component={() => <PinForm user={user} />} />
         <Route exact path='/singleBoard' component={() => <SingleBoard user={user} />} />
+        <Route exact path='search/:text/:type' component= {(props) => <SearchResults {...props}/>}/>
         <Route component={() => <Home user={user} />} />
       </Switch>
   );
