@@ -16,9 +16,6 @@ export default function BoardsCard({ boardData, boardDataFunc }) {
           {' '}
           See Pins
         </Link>
-        <button className='btn btn-outline-warning update-board board-buttons'>
-          Update Board
-        </button>
         <button onClick={() => { boardDataFunc(boardData.firebaseKey); } }className='btn btn-dark delete-board board-buttons'>
           <i className='far fa-trash-alt'></i> Delete Board
         </button>

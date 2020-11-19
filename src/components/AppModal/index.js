@@ -12,6 +12,7 @@ const AppModal = (props) => {
     buttonLabel,
     className,
     title,
+    btnColor,
   } = props;
 
   const [modal, setModal] = useState(false);
@@ -20,7 +21,7 @@ const AppModal = (props) => {
 
   return (
     <div>
-      <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
+      <Button color={btnColor} onClick={toggle}>{buttonLabel}</Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
         <ModalBody>

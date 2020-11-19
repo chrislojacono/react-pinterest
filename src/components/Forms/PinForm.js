@@ -72,7 +72,7 @@ export default class PinForm extends Component {
         console.warn(pinBoardObj);
         addPinsOfBoards(pinBoardObj);
       }).then(() => {
-        this.props.onUpdate?.();
+        this.props.onUpdate?.(this.props.boardId);
         this.setState({ success: true });
       });
     } else {
