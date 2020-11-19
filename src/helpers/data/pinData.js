@@ -52,6 +52,13 @@ const getUserPins = (userId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
+const addPinsOfBoards = (dataObject) => new Promise((resolve, reject) => {
+  axios.post(`${baseUrl}/pins-boards.json`, dataObject).then((response) => {
+    const update = { firebaseKey: response.data.name };
+    axios.patch(`${baseUrl}/pins-boards/${response.data.name}.json`, update);
+  }).catch((error) => reject(error));
+});
+
 export {
   getSinglePin,
   getAllPins,
@@ -59,4 +66,5 @@ export {
   updatePin,
   createPin,
   getUserPins,
+  addPinsOfBoards,
 };
