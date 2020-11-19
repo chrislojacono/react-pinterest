@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import getUser from '../../helpers/data/authData';
-import { createPin, updatePin } from '../../helpers/data/pinData';
+import { createPin, updatePin, addPinsOfBoards } from '../../helpers/data/pinData';
 import { getAllUserBoards } from '../../helpers/data/boardData';
 
 export default class PinForm extends Component {
@@ -15,6 +15,10 @@ export default class PinForm extends Component {
     userId: this.props.pin?.userId || '',
     boards: [],
   };
+
+  boardRef = React.createRef();
+
+  privateRef = React.createRef();
 
   componentDidMount() {
     const userId = getUser();
@@ -56,10 +60,18 @@ export default class PinForm extends Component {
         description: this.state.description,
         name: this.state.name,
         imageUrl: this.state.imageUrl,
-        private: this.state.private,
+        private: this.privateRef.current.value,
         userId: this.state.userId,
       };
-      createPin(newPin).then(() => {
+      createPin(newPin).then((response) => {
+        const pinBoardObj = {
+          boardId: this.boardRef.current.value,
+          pinId: response.data.firebaseKey,
+          userId: this.state.userId,
+        };
+        console.warn(pinBoardObj);
+        addPinsOfBoards(pinBoardObj);
+      }).then(() => {
         this.props.onUpdate?.();
         this.setState({ success: true });
       });
@@ -69,7 +81,7 @@ export default class PinForm extends Component {
         description: this.state.description,
         name: this.state.name,
         imageUrl: this.state.imageUrl,
-        private: this.state.private,
+        private: this.privateRef.current.value,
         userId: this.state.userId,
       };
       updatePin(newPin).then(() => {
@@ -116,18 +128,15 @@ export default class PinForm extends Component {
               required
             />
           </div>
-          <select className='form-control form-control-lg m-2' required>
+          <select ref={this.privateRef} className='form-control form-control-lg m-2' required>
             <option value='true'>Private</option>
             <option value='false'>Public</option>
           </select>
           <label>Select A Board</label>
-          <select
-            label='Select A Board'
-            className='form-control form-control-lg m-2'
-          >
+          <select ref={this.boardRef} label='Select A Board'className='form-control form-control-lg m-2'>
             {Object.keys(boards).length
             && boards.map((board) => (
-              <option value={board.firebaseKey}>{board.name}</option>
+              <option key={board.firebaseKey} value={board.firebaseKey}>{board.name}</option>
             ))}
           </select>
           <div>

@@ -10,7 +10,7 @@ class PublicPins extends React.Component {
   componentDidMount() {
     getAllPins().then((response) => {
       response.forEach((pin) => {
-        if (pin.private === false) {
+        if (pin.private === false || pin.private === 'false') {
           this.setState({
             publicPins: this.state.publicPins.concat(pin),
           });
