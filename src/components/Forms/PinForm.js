@@ -19,6 +19,12 @@ export default class PinForm extends Component {
   componentDidMount() {
     const userId = getUser();
     this.setState({ userId });
+    this.boardsResponse(userId).then((response) => {
+      this.setState({
+        userId,
+        boards: response,
+      });
+    });
   }
 
   handleChange = (e) => {
@@ -45,24 +51,40 @@ export default class PinForm extends Component {
     e.preventDefault();
     this.btn.setAttribute('disabled', 'disabled');
     if (this.state.firebaseKey === '') {
-      createPin(this.state).then(() => {
+      const newPin = {
+        firebaseKey: this.state.firebaseKey,
+        description: this.state.description,
+        name: this.state.name,
+        imageUrl: this.state.imageUrl,
+        private: this.state.private,
+        userId: this.state.userId,
+      };
+      createPin(newPin).then(() => {
         this.props.onUpdate?.();
         this.setState({ success: true });
       });
     } else {
-      updatePin(this.state).then(() => {
+      const newPin = {
+        firebaseKey: this.state.firebaseKey,
+        description: this.state.description,
+        name: this.state.name,
+        imageUrl: this.state.imageUrl,
+        private: this.state.private,
+        userId: this.state.userId,
+      };
+      updatePin(newPin).then(() => {
         this.props.onUpdate?.(this.props.pin.firebaseKey);
         this.setState({ success: true });
       });
     }
   };
 
+  boardsResponse = (userId) => (
+    getAllUserBoards(userId).then((response) => response)
+  );
+
   render() {
-    const { success } = this.state;
-    // const userId = getUser();
-    // const boardsResponse = () => {
-    //   getAllUserBoards(userId).then((response) => response);
-    // };
+    const { success, boards } = this.state;
 
     return (
       <>
@@ -98,15 +120,16 @@ export default class PinForm extends Component {
             <option value='true'>Private</option>
             <option value='false'>Public</option>
           </select>
-          {/* <label>Select A Board</label>
-          {/* <select
+          <label>Select A Board</label>
+          <select
             label='Select A Board'
             className='form-control form-control-lg m-2'
           >
-            {boardsResponse().map((board) => (
+            {Object.keys(boards).length
+            && boards.map((board) => (
               <option value={board.firebaseKey}>{board.name}</option>
             ))}
-          </select> */}
+          </select>
           <div>
             <input
               type='url'
