@@ -63,6 +63,7 @@ export default class PinForm extends Component {
         imageUrl: this.state.imageUrl,
         private: this.privateRef.current.value,
         userId: this.state.userId,
+        website: this.state.website,
       };
       createPin(newPin).then((response) => {
         const pinBoardObj = {
@@ -83,6 +84,7 @@ export default class PinForm extends Component {
         imageUrl: this.state.imageUrl,
         private: this.privateRef.current.value,
         userId: this.state.userId,
+        website: this.state.website,
       };
       updatePin(newPin).then(() => {
         this.props.onUpdate?.(this.props.pin.firebaseKey);

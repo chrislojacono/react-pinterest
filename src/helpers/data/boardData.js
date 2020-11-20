@@ -39,6 +39,19 @@ const getBoardPins = (boardId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
+const getPinsBoards = (pinId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/pins-boards.json?orderBy="pinId"&equalTo="${pinId}"`).then((response) => {
+    const pinResponse = response.data;
+    const pinArray = [];
+    if (pinResponse) {
+      Object.keys(pinResponse).forEach((pin) => {
+        pinArray.push(pinResponse[pin]);
+      });
+    }
+    resolve(pinArray);
+  }).catch((error) => reject(error));
+});
+
 const getSingleBoard = (boardId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/Boards/${boardId}.json`).then((response) => {
     resolve(response.data);
@@ -79,4 +92,5 @@ export {
   updateBoard,
   getAllUserBoards,
   createBoard,
+  getPinsBoards,
 };

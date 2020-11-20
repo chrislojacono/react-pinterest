@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSinglePin, deletePin } from '../helpers/data/pinData';
+import { getSinglePin, deletePin, deletePinsOfBoards } from '../helpers/data/pinData';
 import { getBoardPins, getSingleBoard } from '../helpers/data/boardData';
 import PinsCard from '../components/Cards/PinCard';
 import BoardForm from '../components/Forms/BoardForm';
@@ -13,25 +13,21 @@ export default class SingleBoard extends React.Component {
   };
 
   componentDidMount() {
-    // 1. Pull boardId from URL params
     const boardId = this.props.match.params.id;
-    // 2. Make a call to the API that gets the board info
+
     this.getBoardInfo(boardId);
-    // 3. Make a call to the API that returns the pins associated with this board and set to state.
-    this.getPins(boardId).then((resp) => this.setState({ pins: resp }));
-    // because we did a promise.all, the response will not resolve until all the promises are completed
+    this.getPins(boardId);
   }
 
   getPins = (boardId) => (
     getBoardPins(boardId).then((response) => {
-      // an array that holds all of the calls to get the pin information
       const pinArray = [];
       response.forEach((item) => {
-        // pushing a function that returns a promise into the pinArray
         pinArray.push(getSinglePin(item.pinId));
       });
-      // returning an array of all the fullfilled promises
-      return Promise.all([...pinArray]);
+      Promise.all([...pinArray]).then((resp) => this.setState({
+        pins: resp,
+      }));
     }))
 
     getBoardInfo = (boardId) => {
@@ -44,6 +40,14 @@ export default class SingleBoard extends React.Component {
 
     deletePin = (firebaseKey) => {
       deletePin(firebaseKey);
+      getBoardPins(this.state.board.firebaseKey).then((response) => {
+        response.forEach((item) => {
+          const newArray = Object.values(item);
+          if (newArray.includes(firebaseKey)) {
+            deletePinsOfBoards(item.firebaseKey);
+          }
+        });
+      });
     }
 
     render() {

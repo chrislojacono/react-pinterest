@@ -1,6 +1,7 @@
 import React from 'react';
 import getUid from '../helpers/data/authData';
-import { getUserPins, deletePin } from '../helpers/data/pinData';
+import { getUserPins, deletePin, deletePinsOfBoards } from '../helpers/data/pinData';
+import { getPinsBoards } from '../helpers/data/boardData';
 import PinCard from '../components/Cards/PinCard';
 import PinForm from '../components/Forms/PinForm';
 import AppModal from '../components/AppModal';
@@ -11,6 +12,22 @@ export default class Pins extends React.Component {
   };
 
   componentDidMount() {
+    this.getPins();
+  }
+
+  deletePin = (firebaseKey) => {
+    deletePin(firebaseKey);
+    getPinsBoards(firebaseKey).then((response) => {
+      response.forEach((item) => {
+        const newArray = Object.values(item);
+        if (newArray.includes(firebaseKey)) {
+          deletePinsOfBoards(item.firebaseKey);
+        }
+      });
+    });
+  }
+
+  getPins = () => {
     const userId = getUid();
     getUserPins(userId).then((response) => {
       this.setState({
@@ -19,17 +36,13 @@ export default class Pins extends React.Component {
     });
   }
 
-  deletePin = (firebaseKey) => {
-    deletePin(firebaseKey);
-  }
-
   render() {
     const { pins } = this.state;
     return (
       <div>
         <h1>Your Pins</h1>
         <AppModal buttonLabel={'Add A Pin'} title={'Add A Pin'}>
-        <PinForm />
+        <PinForm onUpdat={this.getPins}/>
         </AppModal>
         <div className="d-flex flex-wrap container">
         {pins.map((pin) => <PinCard key={pin.firebaseKey} deletePin={this.deletePin} pinData={pin} />)}

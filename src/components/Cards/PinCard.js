@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function PinCard({ pinData, deletePin }) {
   return (
     <div className='card m-2'>
-      <div class="img-container card-body" style={{ backgroundImage: `url(${pinData.imageUrl})` }}>
+      <div className="img-container card-body" style={{ backgroundImage: `url(${pinData.imageUrl})` }}>
       <h3 className='card-title grow'>{pinData.name}</h3>
     </div>
         <p className='card-text'>

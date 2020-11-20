@@ -1,5 +1,6 @@
 import React from 'react';
-import { getAllPins, deletePin } from '../helpers/data/pinData';
+import { getAllPins, deletePin, deletePinsOfBoards } from '../helpers/data/pinData';
+import { getPinsBoards } from '../helpers/data/boardData';
 import PinCard from '../components/Cards/PinCard';
 
 class PublicPins extends React.Component {
@@ -21,6 +22,14 @@ class PublicPins extends React.Component {
 
   deletePin = (firebaseKey) => {
     deletePin(firebaseKey);
+    getPinsBoards(firebaseKey).then((response) => {
+      response.forEach((item) => {
+        const newArray = Object.values(item);
+        if (newArray.includes(firebaseKey)) {
+          deletePinsOfBoards(item.firebaseKey);
+        }
+      });
+    });
   }
 
   render() {
