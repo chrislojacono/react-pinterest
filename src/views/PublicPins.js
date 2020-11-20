@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllPins } from '../helpers/data/pinData';
+import { getAllPins, deletePin } from '../helpers/data/pinData';
 import PinCard from '../components/Cards/PinCard';
 
 class PublicPins extends React.Component {
@@ -19,12 +19,16 @@ class PublicPins extends React.Component {
     });
   }
 
+  deletePin = (firebaseKey) => {
+    deletePin(firebaseKey);
+  }
+
   render() {
     const { publicPins } = this.state;
     return (
       <div className='d-flex flex-row flex-wrap container'>
         {publicPins.map((pin) => (
-          <PinCard key={pin.firebaseKey} pinData={pin} />
+          <PinCard key={pin.firebaseKey} deletePin={this.deletePin} pinData={pin} />
         ))}
       </div>
     );

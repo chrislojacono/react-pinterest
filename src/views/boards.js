@@ -42,7 +42,7 @@ class Boards extends React.Component {
       <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
       <BoardForm onUpdate={this.getBoards} />
         </AppModal>
-      <div className='d-flex flex-row flex-wrap'>
+      <div className='d-flex flex-row flex-wrap justify-content-center'>
         {boards.map((board) => (
           <BoardCard
             key={board.firebaseKey}
