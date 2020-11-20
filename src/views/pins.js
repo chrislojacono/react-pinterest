@@ -1,6 +1,6 @@
 import React from 'react';
 import getUid from '../helpers/data/authData';
-import { getUserPins } from '../helpers/data/pinData';
+import { getUserPins, deletePin } from '../helpers/data/pinData';
 import PinCard from '../components/Cards/PinCard';
 import PinForm from '../components/Forms/PinForm';
 import AppModal from '../components/AppModal';
@@ -19,6 +19,10 @@ export default class Pins extends React.Component {
     });
   }
 
+  deletePin = (firebaseKey) => {
+    deletePin(firebaseKey);
+  }
+
   render() {
     const { pins } = this.state;
     return (
@@ -28,7 +32,7 @@ export default class Pins extends React.Component {
         <PinForm />
         </AppModal>
         <div className="d-flex flex-wrap container">
-        {pins.map((pin) => <PinCard key={pin.firebaseKey} pinData={pin} />)}
+        {pins.map((pin) => <PinCard key={pin.firebaseKey} deletePin={this.deletePin} pinData={pin} />)}
         </div>
 
       </div>

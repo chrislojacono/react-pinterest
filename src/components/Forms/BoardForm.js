@@ -62,6 +62,7 @@ export default class BoardForm extends Component {
       { success && (<div className="alert alert-success" role="alert">Your Board was Updated/Created</div>)
       }
       <form onSubmit={this.handleSubmit}>
+      <label>Board Name</label>
         <div>
         <input
           type='text'
@@ -73,6 +74,7 @@ export default class BoardForm extends Component {
           required
         />
         </div>
+        <label>Board Description</label>
         <div>
         <input
           type='text'
@@ -84,6 +86,7 @@ export default class BoardForm extends Component {
           required
         />
         </div>
+        <label>Add an Image</label>
         <div>
         <input
           type='url'
