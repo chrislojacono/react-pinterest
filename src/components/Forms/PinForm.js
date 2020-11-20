@@ -7,7 +7,7 @@ import { getAllUserBoards } from '../../helpers/data/boardData';
 
 export default class PinForm extends Component {
   state = {
-    firebaseKey: this.props.pin?.firebase || '',
+    firebaseKey: this.props.pin?.firebaseKey || '',
     description: this.props.pin?.description || '',
     name: this.props.pin?.name || '',
     imageUrl: this.props.pin?.imageUrl || '',
@@ -63,6 +63,7 @@ export default class PinForm extends Component {
         imageUrl: this.state.imageUrl,
         private: this.privateRef.current.value,
         userId: this.state.userId,
+        website: this.state.website,
       };
       createPin(newPin).then((response) => {
         const pinBoardObj = {
@@ -83,8 +84,16 @@ export default class PinForm extends Component {
         imageUrl: this.state.imageUrl,
         private: this.privateRef.current.value,
         userId: this.state.userId,
+        website: this.state.website,
       };
-      updatePin(newPin).then(() => {
+      updatePin(newPin).then((response) => {
+        const pinBoardObj = {
+          boardId: this.boardRef.current.value,
+          pinId: response.data.firebaseKey,
+          userId: this.state.userId,
+        };
+        addPinsOfBoards(pinBoardObj);
+      }).then(() => {
         this.props.onUpdate?.(this.props.pin.firebaseKey);
         this.setState({ success: true });
       });

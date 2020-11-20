@@ -39,9 +39,11 @@ class Boards extends React.Component {
     const { boards } = this.state;
     return (
       <>
+      <div className="m-1">
       <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
       <BoardForm onUpdate={this.getBoards} />
         </AppModal>
+      </div>
       <div className='d-flex flex-row flex-wrap justify-content-center'>
         {boards.map((board) => (
           <BoardCard
