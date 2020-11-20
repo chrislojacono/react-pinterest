@@ -12,6 +12,7 @@ export default class PinForm extends Component {
     name: this.props.pin?.name || '',
     imageUrl: this.props.pin?.imageUrl || '',
     private: this.props.pin?.private || false,
+    website: this.props.pin?.website || '',
     userId: this.props.pin?.userId || '',
     boards: [],
   };
@@ -105,6 +106,7 @@ export default class PinForm extends Component {
           </div>
         )}
         <form onSubmit={this.handleSubmit}>
+        <label>Pin Name</label>
           <div>
             <input
               type='text'
@@ -116,6 +118,7 @@ export default class PinForm extends Component {
               required
             />
           </div>
+          <label>Pin Description</label>
           <div>
             <input
               type='text'
@@ -127,6 +130,19 @@ export default class PinForm extends Component {
               required
             />
           </div>
+          <label>Pin Website</label>
+          <div>
+            <input
+              type='text'
+              name='website'
+              value={this.state.website}
+              onChange={this.handleChange}
+              placeholder='Pin Website'
+              className='form-control form-control-lg m-1'
+              required
+            />
+          </div>
+          <label>Public or Private</label>
           <select ref={this.privateRef} className='form-control form-control-lg m-2' required>
             <option value='true'>Private</option>
             <option value='false'>Public</option>
@@ -138,6 +154,7 @@ export default class PinForm extends Component {
               <option key={board.firebaseKey} value={board.firebaseKey}>{board.name}</option>
             ))}
           </select>
+          <label>Add an Image</label>
           <div>
             <input
               type='url'
