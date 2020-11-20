@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function BoardsCard({ boardData, boardDataFunc }) {
   return (
-    <div className='card grow m-2' style={{ width: '18rem' }}>
+    <div className='card grow m-2'>
       <div class="img-container card-body" style={{ backgroundImage: `url(${boardData.imageUrl})` }}>
       <h3 className='card-title grow'>{boardData.name}</h3>
     </div>
