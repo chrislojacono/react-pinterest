@@ -8,7 +8,6 @@ import Home from '../views/home';
 import BoardForm from '../views/boardForm';
 import Boards from '../views/boards';
 import PinDetails from '../views/pinDetails';
-import PinForm from '../views/pinForm';
 import Pins from '../views/pins';
 import SingleBoard from '../views/singleBoard';
 import SearchResults from '../views/SearchResults';
@@ -22,7 +21,6 @@ export default function Routes({ user }) {
         <Route exact path='/pins' component={() => <Pins user={user} />} />
         <Route exact path='/boardForm' component={() => <BoardForm user={user} />} />
         <Route exact path='/pinDetails' component={() => <PinDetails user={user} />} />
-        <Route exact path='/pinForm' component={() => <PinForm user={user} />} />
         <Route exact path='/singleBoard' component={() => <SingleBoard user={user} />} />
         <Route exact path='/search/:term/:type' component= {(props) => <SearchResults {...props}/>}/>
         <Route component={() => <Home user={user} />} />

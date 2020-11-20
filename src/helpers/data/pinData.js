@@ -59,6 +59,10 @@ const addPinsOfBoards = (dataObject) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
+const deletePinsOfBoards = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${baseUrl}/pins-boards/${firebaseKey}.json`).then((response) => { if (response.statusText === 'OK') { resolve(0); } }).catch((error) => reject(error));
+});
+
 export {
   getSinglePin,
   getAllPins,
@@ -67,4 +71,5 @@ export {
   createPin,
   getUserPins,
   addPinsOfBoards,
+  deletePinsOfBoards,
 };

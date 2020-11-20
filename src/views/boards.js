@@ -1,9 +1,10 @@
 import React from 'react';
 import getUid from '../helpers/data/authData';
-import { getAllUserBoards, deleteBoard } from '../helpers/data/boardData';
+import { getAllUserBoards, deleteBoard, getBoardPins } from '../helpers/data/boardData';
 import BoardCard from '../components/Cards/BoardCard';
 import BoardForm from '../components/Forms/BoardForm';
 import AppModal from '../components/AppModal';
+import { deletePinsOfBoards, deletePin } from '../helpers/data/pinData';
 
 class Boards extends React.Component {
   state = {
@@ -25,8 +26,13 @@ class Boards extends React.Component {
     });
   };
 
-  deleteBoard = (firebasekey) => {
-    deleteBoard(firebasekey);
+  deleteBoard = (firebaseKey) => {
+    deleteBoard(firebaseKey);
+    getBoardPins(firebaseKey).then((response) => {
+      response.forEach((item) => {
+        deletePinsOfBoards(item.firebaseKey);
+      });
+    });
   };
 
   render() {

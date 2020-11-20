@@ -69,7 +69,6 @@ export default class PinForm extends Component {
           pinId: response.data.firebaseKey,
           userId: this.state.userId,
         };
-        console.warn(pinBoardObj);
         addPinsOfBoards(pinBoardObj);
       }).then(() => {
         this.props.onUpdate?.(this.props.boardId);
