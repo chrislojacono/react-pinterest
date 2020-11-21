@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import getUser from '../../helpers/data/authData';
-import { createPin, updatePin, addPinsOfBoards } from '../../helpers/data/pinData';
-import { getAllUserBoards } from '../../helpers/data/boardData';
+import {
+  createPin,
+  updatePin,
+  addPinsOfBoards,
+  deletePinsOfBoards,
+} from '../../helpers/data/pinData';
+import { getAllUserBoards, getPinsBoards } from '../../helpers/data/boardData';
 
 export default class PinForm extends Component {
   state = {
@@ -77,6 +82,14 @@ export default class PinForm extends Component {
         this.setState({ success: true });
       });
     } else {
+      getPinsBoards(this.state.firebaseKey).then((response) => {
+        response.forEach((item) => {
+          const newArray = Object.values(item);
+          if (newArray.includes(this.state.firebaseKey)) {
+            deletePinsOfBoards(item.firebaseKey);
+          }
+        });
+      });
       const newPin = {
         firebaseKey: this.state.firebaseKey,
         description: this.state.description,
@@ -93,10 +106,11 @@ export default class PinForm extends Component {
           userId: this.state.userId,
         };
         addPinsOfBoards(pinBoardObj);
-      }).then(() => {
-        this.props.onUpdate?.(this.props.pin.firebaseKey);
-        this.setState({ success: true });
-      });
+      })
+        .then(() => {
+          this.props.onUpdate?.(this.props.pin.firebaseKey);
+          this.setState({ success: true });
+        });
     }
   };
 
