@@ -6,6 +6,7 @@ The main motivation was to learn CRUD functionality while working in react. This
 
 ## Build Status/Deployed Link
 [![Netlify Status](https://api.netlify.com/api/v1/badges/998453e7-ba95-4682-a3b6-c113a6022d1d/deploy-status)](https://app.netlify.com/sites/pinterest3/deploys)
+###### [Deployed Link](https://pinterest3.netlify.app/pins)
 
 ## Screenshots
 ![screencapture-pinterest3-netlify-app-pins-2020-11-21-13_23_01](https://user-images.githubusercontent.com/66916708/99885741-b8603d80-2bfc-11eb-94a4-8acb5f4e0433.png)
