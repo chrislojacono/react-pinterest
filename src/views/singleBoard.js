@@ -16,7 +16,9 @@ export default class SingleBoard extends React.Component {
     const boardId = this.props.match.params.id;
 
     this.getBoardInfo(boardId);
-    this.getPins(boardId);
+    this.getPins(boardId).then((resp) => this.setState({
+      pins: resp,
+    }));
   }
 
   getPins = (boardId) => (
@@ -25,9 +27,7 @@ export default class SingleBoard extends React.Component {
       response.forEach((item) => {
         pinArray.push(getSinglePin(item.pinId));
       });
-      Promise.all([...pinArray]).then((resp) => this.setState({
-        pins: resp,
-      }));
+      return Promise.all([...pinArray]);
     }))
 
     getBoardInfo = (boardId) => {
@@ -53,10 +53,9 @@ export default class SingleBoard extends React.Component {
     render() {
       const { pins, board } = this.state;
       const renderPins = () => (
-      // 4. map over the pins in state
         pins.map((pin) => <PinsCard key={pin.firebaseKey} onUpdate={this.getPins} deletePin={this.deletePin} pinData={pin}/>)
       );
-      // 5. Render the pins on the DOM
+
       return (
       <div>
         <AppModal
@@ -68,14 +67,6 @@ export default class SingleBoard extends React.Component {
           {Object.keys(board).length && (
             <BoardForm board={board} onUpdate={this.getBoardInfo} />
           )}
-        </AppModal>
-        <AppModal
-          title={'Add Pin'}
-          btnColor={'success'}
-          buttonLabel={'Add Pin'}
-          icon={'fa-plus-circle'}
-        >
-          <PinForm boardId={this.props.match.params.id} onUpdate={this.getPins}/>
         </AppModal>
         <h1>{board.name}</h1>
         <div className='d-flex flex-wrap container'>{renderPins()}</div>
