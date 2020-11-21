@@ -5,16 +5,16 @@ import PinForm from '../Forms/PinForm';
 
 export default function PinCard({ pinData, deletePin, onUpdate }) {
   return (
-    <div className='card m-2'>
+    <div className='card m-2 grow'>
+      <a href={pinData.website}>
       <div className="img-container card-body" style={{ backgroundImage: `url(${pinData.imageUrl})` }}>
       <h3 className='card-title grow'>{pinData.name}</h3>
     </div>
+      </a>
+
         <p className='card-text'>
           {pinData.description}
         </p>
-        {/* <Link className='btn btn-primary' to={`/pin-edit/${pinData.firebaseKey}`}>
-          Edit Pin
-        </Link> */}
         <AppModal buttonLabel={'Edit Pin'} btnColor={'info'} title={'Edit Pin'}>
           <PinForm pin={pinData} onUpdate={onUpdate}/>
         </AppModal>

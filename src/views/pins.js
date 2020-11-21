@@ -25,6 +25,7 @@ export default class Pins extends React.Component {
         }
       });
     });
+    this.getPins();
   }
 
   getPins = () => {
@@ -42,10 +43,10 @@ export default class Pins extends React.Component {
       <div>
         <h1>Your Pins</h1>
         <AppModal buttonLabel={'Add A Pin'} title={'Add A Pin'}>
-        <PinForm onUpdat={this.getPins}/>
+        <PinForm onUpdate={this.getPins}/>
         </AppModal>
         <div className="d-flex flex-wrap container">
-        {pins.map((pin) => <PinCard key={pin.firebaseKey} deletePin={this.deletePin} pinData={pin} />)}
+        {pins.map((pin) => <PinCard key={pin.firebaseKey} deletePin={this.deletePin} pinData={pin} onUpdate={this.getPins}/>)}
         </div>
 
       </div>

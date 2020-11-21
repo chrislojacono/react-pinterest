@@ -18,3 +18,20 @@
 .card-title{
     color: white;
 }
+
+.grow { 
+    transition: all .2s ease-in-out; 
+}
+    
+.grow:hover { 
+  transform: scale(1.03); 
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+.board-buttons{
+    width:33.3%;
+    margin: 0 auto;
+}
