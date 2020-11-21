@@ -13,7 +13,6 @@ export default class SingleBoard extends React.Component {
 
   componentDidMount() {
     const boardId = this.props.match.params.id;
-
     this.getBoardInfo(boardId);
     this.getPins(boardId).then((resp) => this.setState({
       pins: resp,
