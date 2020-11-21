@@ -5,7 +5,7 @@ import PinForm from '../Forms/PinForm';
 
 export default function PinCard({ pinData, deletePin, onUpdate }) {
   return (
-    <div className='card m-2'>
+    <div className='card m-2 grow'>
       <a href={pinData.website}>
       <div className="img-container card-body" style={{ backgroundImage: `url(${pinData.imageUrl})` }}>
       <h3 className='card-title grow'>{pinData.name}</h3>
