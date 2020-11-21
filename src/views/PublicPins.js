@@ -2,6 +2,7 @@ import React from 'react';
 import { getAllPins, deletePin, deletePinsOfBoards } from '../helpers/data/pinData';
 import { getPinsBoards } from '../helpers/data/boardData';
 import PinCard from '../components/Cards/PinCard';
+import PublicPinCard from '../components/Cards/PublicPinCard';
 
 class PublicPins extends React.Component {
   state = {
@@ -47,7 +48,7 @@ class PublicPins extends React.Component {
     return (
       <div className='d-flex flex-row flex-wrap container'>
         {publicPins.map((pin) => (
-          <PinCard key={pin.firebaseKey} deletePin={this.deletePin} onUpdate={this.getThePins} pinData={pin} />
+          <PublicPinCard key={pin.firebaseKey} pinData={pin} />
         ))}
       </div>
     );
