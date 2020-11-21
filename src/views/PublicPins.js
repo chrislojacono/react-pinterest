@@ -9,6 +9,13 @@ class PublicPins extends React.Component {
   };
 
   componentDidMount() {
+    this.getThePins();
+  }
+
+  getThePins = () => {
+    this.setState({
+      publicPins: [],
+    });
     getAllPins().then((response) => {
       response.forEach((pin) => {
         if (pin.private === false || pin.private === 'false') {
@@ -29,7 +36,10 @@ class PublicPins extends React.Component {
           deletePinsOfBoards(item.firebaseKey);
         }
       });
-    });
+    }).then(() => this.setState({
+      publicPins: [],
+    }));
+    this.getThePins();
   }
 
   render() {
@@ -37,7 +47,7 @@ class PublicPins extends React.Component {
     return (
       <div className='d-flex flex-row flex-wrap container'>
         {publicPins.map((pin) => (
-          <PinCard key={pin.firebaseKey} deletePin={this.deletePin} pinData={pin} />
+          <PinCard key={pin.firebaseKey} deletePin={this.deletePin} onUpdate={this.getThePins} pinData={pin} />
         ))}
       </div>
     );
