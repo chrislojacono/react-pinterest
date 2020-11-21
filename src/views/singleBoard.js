@@ -4,7 +4,6 @@ import { getBoardPins, getSingleBoard } from '../helpers/data/boardData';
 import PinsCard from '../components/Cards/PinCard';
 import BoardForm from '../components/Forms/BoardForm';
 import AppModal from '../components/AppModal';
-import PinForm from '../components/Forms/PinForm';
 
 export default class SingleBoard extends React.Component {
   state = {

@@ -4,7 +4,7 @@ import { getAllUserBoards, deleteBoard, getBoardPins } from '../helpers/data/boa
 import BoardCard from '../components/Cards/BoardCard';
 import BoardForm from '../components/Forms/BoardForm';
 import AppModal from '../components/AppModal';
-import { deletePinsOfBoards, deletePin } from '../helpers/data/pinData';
+import { deletePinsOfBoards } from '../helpers/data/pinData';
 
 class Boards extends React.Component {
   state = {

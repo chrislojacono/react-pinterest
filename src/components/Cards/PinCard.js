@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AppModal from '../AppModal';
 import PinForm from '../Forms/PinForm';
 

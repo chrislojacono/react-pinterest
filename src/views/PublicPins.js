@@ -1,7 +1,6 @@
 import React from 'react';
 import { getAllPins, deletePin, deletePinsOfBoards } from '../helpers/data/pinData';
 import { getPinsBoards } from '../helpers/data/boardData';
-import PinCard from '../components/Cards/PinCard';
 import PublicPinCard from '../components/Cards/PublicPinCard';
 
 class PublicPins extends React.Component {
