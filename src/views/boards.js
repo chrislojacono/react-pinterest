@@ -30,7 +30,7 @@ class Boards extends React.Component {
     deleteBoard(firebaseKey);
     getBoardPins(firebaseKey).then((response) => {
       response.forEach((item) => {
-        deletePinsOfBoards(item.firebaseKey);
+        deletePinsOfBoards(item.firebaseKey).then(() => this.getBoards());
       });
     });
   };

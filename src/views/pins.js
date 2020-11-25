@@ -21,11 +21,10 @@ export default class Pins extends React.Component {
       response.forEach((item) => {
         const newArray = Object.values(item);
         if (newArray.includes(firebaseKey)) {
-          deletePinsOfBoards(item.firebaseKey);
+          deletePinsOfBoards(item.firebaseKey).then(() => this.getPins());
         }
       });
     });
-    this.getPins();
   }
 
   getPins = () => {

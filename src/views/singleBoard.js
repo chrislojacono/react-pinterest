@@ -37,12 +37,15 @@ export default class SingleBoard extends React.Component {
     }
 
     deletePin = (firebaseKey) => {
+      const boardId = this.props.match.params.id;
       deletePin(firebaseKey);
       getBoardPins(this.state.board.firebaseKey).then((response) => {
         response.forEach((item) => {
           const newArray = Object.values(item);
           if (newArray.includes(firebaseKey)) {
-            deletePinsOfBoards(item.firebaseKey);
+            deletePinsOfBoards(item.firebaseKey).then(() => this.getPins(boardId).then((resp) => this.setState({
+              pins: resp,
+            })));
           }
         });
       });
