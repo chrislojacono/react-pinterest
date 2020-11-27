@@ -62,7 +62,7 @@ const deleteBoard = (boardUid) => {
   getBoardPins(boardUid)
     .then((response) => {
       response.forEach((item) => {
-        deletePin(item.uid);
+        deletePin(item.pinId);
       });
     })
     .then(() => {
