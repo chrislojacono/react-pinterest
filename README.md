@@ -1,5 +1,5 @@
 # Pinterest 3.0 w/React
-This was a project we did to learn CRUD with react. It was meant to be the same idea as the real Pinterest. Where a user can log in and add Boards the add Pins to the Boards with pictures and links to websites associated with them.
+This was a project we did to learn CRUD with react. It was meant to be the same idea as the real Pinterest. Where a user can log in and add Boards the add Pins to the Boards with pictures and links to websites associated with them
 
 ## The Motivation
 The main motivation was to learn CRUD functionality while working in react. This was also good practive of complex data structures and intermediary tables within firebase. It was a challenge to learn how to keep track of the data within the intermediary data table while editing and deleting pins/boards.
